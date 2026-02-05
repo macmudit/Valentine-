@@ -18,7 +18,7 @@
 
   .card {
     background: white;
-    width: 320px;
+    width: 340px;
     padding: 25px;
     border-radius: 18px;
     text-align: center;
@@ -43,24 +43,24 @@
 
   .buttons {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     gap: 12px;
+    justify-content: center;
+    align-items: center;
   }
 
   button {
     border: none;
     cursor: pointer;
     border-radius: 50px;
-    padding: 12px 18px;
+    padding: 12px 20px;
     font-size: 16px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
   }
 
   #yes {
     background: #ff4d6d;
     color: white;
-    flex-grow: 1;
+    min-width: 120px;
   }
 
   #no {
@@ -74,7 +74,9 @@
 
 <div class="card" id="card">
   <img id="image"
-       src="https://media.tenor.com/1YpZy9KZQmUAAAAC/love-you.gif">
+       referrerpolicy="no-referrer"
+       src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+       onerror="this.src='https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif'">
 
   <h1>Richa ❤️</h1>
   <p id="text">Will you be my Valentine? 💘</p>
@@ -85,7 +87,7 @@
   </div>
 </div>
 
-<!-- 🎵 MUSIC (plays after first click) -->
+<!-- 🎵 MUSIC -->
 <audio id="music" loop>
   <source src="aao-na.mp3" type="audio/mpeg">
 </audio>
@@ -99,23 +101,23 @@
     "Pleaseeee 🥺",
     "Think again love 💔",
     "Don’t break my heart 😭",
-    "I can’t imagine without you 😢",
+    "I can’t imagine life without you 😢",
     "One last chance 🥹",
-    "I’m already yours 💘",
+    "My heart says only you 💘",
     "Okay now you're just teasing 😩"
   ];
 
   const images = [
-    "https://media.tenor.com/8mc5D9xv7KMAAAAC/crying-cat.gif",
-    "https://media.tenor.com/VN1gJrJ0E3gAAAAC/sad-bear.gif",
-    "https://media.tenor.com/y2JXkY1N9E0AAAAC/please-beg.gif",
-    "https://media.tenor.com/4Zl5W9bYQ9wAAAAC/cute-cry.gif",
-    "https://media.tenor.com/2roX3uxz_68AAAAC/cute-love.gif"
+    "https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif",
+    "https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif",
+    "https://media.giphy.com/media/9Y5BbDSkSTiY8/giphy.gif",
+    "https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif",
+    "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"
   ];
 
   function startMusic() {
     if (!musicStarted) {
-      document.getElementById("music").play();
+      document.getElementById("music").play().catch(() => {});
       musicStarted = true;
     }
   }
@@ -130,19 +132,19 @@
     document.getElementById("image").src =
       images[noCount % images.length];
 
-    yesScale += 0.15;
+    yesScale += 0.12;
     document.getElementById("yes").style.transform =
       `scale(${yesScale})`;
   }
 
   function yesClicked() {
     startMusic();
-
     document.getElementById("card").innerHTML = `
-      <img src="https://media.tenor.com/1YpZy9KZQmUAAAAC/love-you.gif">
+      <img referrerpolicy="no-referrer"
+           src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
       <h1>I Love You ❤️</h1>
       <p>
-        Richa, you just made me the happiest person alive 💖<br><br>
+        Richa, you just made my world complete 💖<br><br>
         Happy Valentine’s Day, my love 💕
       </p>
     `;
