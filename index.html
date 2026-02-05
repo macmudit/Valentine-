@@ -2,115 +2,159 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Richa ❤️</title>
 
 <style>
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-  font-family: Arial, sans-serif;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* floating hearts */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.6;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-110vh); opacity: 0; }
 }
 
 .card {
   background: white;
-  width: 90%;
-  max-width: 360px;
-  padding: 25px 20px;
-  border-radius: 20px;
+  width: 350px;
+  padding: 28px;
+  border-radius: 22px;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,.25);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+  z-index: 10;
 }
 
-img {
-  width: 200px;
+/* SVG heart animation */
+svg {
+  width: 160px;
   margin-bottom: 15px;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 h1 {
   color: #ff4d6d;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 p {
-  font-size: 17px;
-  min-height: 45px;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
 }
 
 .buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
   border: none;
-  border-radius: 30px;
   cursor: pointer;
-  transition: .3s;
+  border-radius: 50px;
+  padding: 14px 22px;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 #yes {
   background: #ff4d6d;
   color: white;
-  padding: 14px 32px;
-  font-size: 16px;
+  min-width: 130px;
 }
 
 #no {
-  background: #adb5bd;
+  background: #9e9e9e;
   color: white;
-  padding: 12px 22px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <img id="image" src="images/love1.gif">
+<!-- Floating hearts -->
+<script>
+for (let i = 0; i < 20; i++) {
+  let h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "❤️";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = (4 + Math.random() * 4) + "s";
+  document.body.appendChild(h);
+}
+</script>
+
+<div class="card" id="card">
+
+  <!-- Inline SVG = NEVER breaks -->
+  <svg viewBox="0 0 512 512">
+    <path fill="#ff4d6d" d="M256 464l-35-32C96 320 32 256 32 176
+    32 112 80 64 144 64c48 0 80 24 112 64
+    32-40 64-64 112-64 64 0 112 48 112 112
+    0 80-64 144-189 256z"/>
+  </svg>
+
   <h1>Richa ❤️</h1>
-  <p id="text">Will you be my Valentine? 💘</p>
+  <p id="text">
+    From the moment you entered my life,<br>
+    everything started feeling warmer, brighter, and happier 💖<br><br>
+    Will you be my Valentine? 💘
+  </p>
 
   <div class="buttons">
-    <button id="yes" onclick="yesClicked()">Yes 💕</button>
+    <button id="yes" onclick="yesClicked()">Yes 💞</button>
     <button id="no" onclick="noClicked()">No 😢</button>
   </div>
 </div>
 
-<audio id="music">
+<!-- Music -->
+<audio id="music" loop>
   <source src="aao-na.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 let noCount = 0;
-let yesFont = 16;
-let yesPadding = 32;
+let yesScale = 1;
 let musicStarted = false;
 
 const texts = [
-  "Pleaseee 🥺",
-  "Are you really sure? 💔",
-  "Think again love 😢",
-  "My heart is breaking 😭",
-  "Richa please 🥹",
-  "Don’t be so cruel 😞",
-  "You know you love me 😏"
-];
-
-const images = [
-  "images/sad1.gif",
-  "images/begging.gif",
-  "images/sad2.gif",
-  "images/love2.gif"
+  "Please… just think once more 🥺",
+  "My heart skips a beat every time I see you 💔",
+  "Are you really sure? 😢",
+  "I imagined so many moments with you 💭",
+  "You’re my favorite chapter in life 📖💖",
+  "Don’t let this love fade away 🥹",
+  "Okay… now my heart is officially melting 😭❤️"
 ];
 
 function startMusic() {
   if (!musicStarted) {
-    document.getElementById("music").play();
+    document.getElementById("music").play().catch(() => {});
     musicStarted = true;
   }
 }
@@ -119,28 +163,29 @@ function noClicked() {
   startMusic();
   noCount++;
 
-  document.getElementById("text").innerText =
+  document.getElementById("text").innerHTML =
     texts[noCount % texts.length];
 
-  document.getElementById("image").src =
-    images[noCount % images.length];
-
-  yesFont += 2;
-  yesPadding += 6;
-
-  const yesBtn = document.getElementById("yes");
-  yesBtn.style.fontSize = yesFont + "px";
-  yesBtn.style.padding = "14px " + yesPadding + "px";
+  yesScale += 0.15;
+  document.getElementById("yes").style.transform =
+    `scale(${yesScale})`;
 }
 
 function yesClicked() {
   startMusic();
-  document.querySelector(".card").innerHTML = `
-    <img src="images/love2.gif">
+  document.getElementById("card").innerHTML = `
+    <svg viewBox="0 0 512 512">
+      <path fill="#ff4d6d" d="M256 464l-35-32C96 320 32 256 32 176
+      32 112 80 64 144 64c48 0 80 24 112 64
+      32-40 64-64 112-64 64 0 112 48 112 112
+      0 80-64 144-189 256z"/>
+    </svg>
     <h1>I Love You ❤️</h1>
     <p>
-      Richa, you are officially my Valentine 💖<br><br>
-      My heart chose you — forever 💫
+      You just made me the happiest person alive 💖<br><br>
+      Thank you for choosing my heart, my smile,<br>
+      my silly jokes, and my forever 💍<br><br>
+      Happy Valentine’s Day, my Valentine 💕
     </p>
   `;
 }
