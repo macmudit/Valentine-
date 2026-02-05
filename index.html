@@ -3,32 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <title>For Richa ❤️</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      padding: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       display: flex;
       align-items: center;
       justify-content: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       font-family: 'Poppins', sans-serif;
-      text-align: center;
     }
 
     .card {
       background: white;
-      padding: 30px;
+      padding: 30px 20px;
       border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      max-width: 350px;
       width: 90%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
     }
 
     img {
       width: 200px;
-      height: auto;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       transition: 0.3s;
     }
 
@@ -42,81 +45,123 @@
       margin-bottom: 20px;
     }
 
+    .buttons {
+      position: relative;
+      height: 80px;
+    }
+
     button {
-      padding: 12px 25px;
-      font-size: 16px;
       border: none;
-      border-radius: 25px;
+      border-radius: 30px;
+      padding: 12px 26px;
+      font-size: 16px;
       cursor: pointer;
-      margin: 10px;
       transition: 0.3s;
+      position: absolute;
     }
 
     #yes {
       background: #ff4d6d;
       color: white;
+      left: 20px;
     }
 
     #no {
       background: #adb5bd;
       color: white;
-      position: relative;
+      right: 20px;
     }
   </style>
 </head>
+
 <body>
 
   <div class="card">
     <img id="image" src="https://media.tenor.com/2roX3uxz_68AAAAC/cute-love.gif">
-    <h1 id="question">Richa ❤️</h1>
+
+    <h1>Richa ❤️</h1>
     <p id="text">Will you be my Valentine?</p>
 
-    <button id="yes" onclick="yesClicked()">Yes 💕</button>
-    <button id="no" onclick="noClicked()">No 😢</button>
+    <div class="buttons">
+      <button id="yes" onclick="yesClicked()">Yes 💕</button>
+      <button id="no" onclick="noClicked()">No 😢</button>
+    </div>
   </div>
 
-<script>
-  let noCount = 0;
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://aac.saavncdn.com/274/8f41a9c4d8b53c71e2f43a3c4c0d8b7b_160.mp4" type="audio/mp4">
+  </audio>
 
-  const messages = [
-    "Pleaseee 🥺",
-    "Are you sure? 💔",
-    "Think again 😭",
-    "Don't do this to me 😢",
-    "Last chance 🥹",
-    "My heart can't take this 💘"
-  ];
+  <script>
+    let noClickCount = 0;
+    let yesScale = 1;
 
-  const images = [
-    "https://media.tenor.com/2roX3uxz_68AAAAC/cute-love.gif",
-    "https://media.tenor.com/8mc5D9xv7KMAAAAC/crying-cat.gif",
-    "https://media.tenor.com/VN1gJrJ0E3gAAAAC/sad-bear.gif",
-    "https://media.tenor.com/4Zl5W9bYQ9wAAAAC/cute-cry.gif",
-    "https://media.tenor.com/y2JXkY1N9E0AAAAC/please-beg.gif"
-  ];
+    const texts = [
+      "Pleaseee 🥺",
+      "Are you really sure? 💔",
+      "Think again baby 😢",
+      "My heart is breaking 😭",
+      "I can’t handle this 💘",
+      "Richa please 😖",
+      "You know you love me 😏",
+      "Stop being so cruel 😩",
+      "Okay now I’m genuinely sad 😞",
+      "Last chance before I cry 🥹"
+    ];
 
-  function noClicked() {
-    noCount++;
-    document.getElementById("text").innerText =
-      messages[noCount % messages.length];
-    document.getElementById("image").src =
-      images[noCount % images.length];
+    const images = [
+      "https://media.tenor.com/8mc5D9xv7KMAAAAC/crying-cat.gif",
+      "https://media.tenor.com/VN1gJrJ0E3gAAAAC/sad-bear.gif",
+      "https://media.tenor.com/4Zl5W9bYQ9wAAAAC/cute-cry.gif",
+      "https://media.tenor.com/y2JXkY1N9E0AAAAC/please-beg.gif",
+      "https://media.tenor.com/J5F7WQnZpEwAAAAC/begging.gif",
+      "https://media.tenor.com/2roX3uxz_68AAAAC/cute-love.gif"
+    ];
 
-    // Move the NO button
-    const noBtn = document.getElementById("no");
-    noBtn.style.top = Math.random() * 100 - 50 + "px";
-    noBtn.style.left = Math.random() * 100 - 50 + "px";
-  }
+    function startMusic() {
+      const music = document.getElementById("bgMusic");
+      if (music.paused) {
+        music.play().catch(() => {});
+      }
+    }
 
-  function yesClicked() {
-    document.querySelector(".card").innerHTML = `
-      <img src="https://media.tenor.com/1YpZy9KZQmUAAAAC/love-you.gif">
-      <h1>I Love You ❤️</h1>
-      <p>Richa, you are officially my Valentine 💖<br>
-      Thank you for making my heart smile 😊</p>
-    `;
-  }
-</script>
+    function noClicked() {
+      startMusic();
+      noClickCount++;
+
+      // Change text
+      document.getElementById("text").innerText =
+        texts[noClickCount % texts.length];
+
+      // Change image every time
+      document.getElementById("image").src =
+        images[noClickCount % images.length] + "?v=" + Date.now();
+
+      // Grow YES button
+      yesScale += 0.25;
+      document.getElementById("yes").style.transform =
+        `scale(${yesScale})`;
+
+      // Move NO button randomly
+      const noBtn = document.getElementById("no");
+      noBtn.style.top = Math.random() * 60 - 30 + "px";
+      noBtn.style.right = Math.random() * 60 - 30 + "px";
+    }
+
+    function yesClicked() {
+      startMusic();
+      document.querySelector(".card").innerHTML = `
+        <img src="https://media.tenor.com/1YpZy9KZQmUAAAAC/love-you.gif" style="width:220px">
+        <h1>I Love You ❤️</h1>
+        <p>
+          Richa, you are officially my Valentine 💖<br><br>
+          My heart chose you, today and always 💫<br>
+          And honestly… I knew you’d say YES 😌
+        </p>
+      `;
+    }
+  </script>
 
 </body>
 </html>
