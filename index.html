@@ -2,153 +2,148 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Richa ❤️</title>
 
 <style>
-  body {
-    margin: 0;
-    height: 100vh;
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  font-family: Arial, sans-serif;
+}
 
-  .card {
-    background: white;
-    width: 340px;
-    padding: 25px;
-    border-radius: 18px;
-    text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  }
+.card {
+  background: white;
+  width: 90%;
+  max-width: 360px;
+  padding: 25px 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,.25);
+}
 
-  img {
-    width: 180px;
-    height: auto;
-    margin-bottom: 15px;
-  }
+img {
+  width: 200px;
+  margin-bottom: 15px;
+}
 
-  h1 {
-    color: #ff4d6d;
-    margin-bottom: 8px;
-  }
+h1 {
+  color: #ff4d6d;
+  margin-bottom: 8px;
+}
 
-  p {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
+p {
+  font-size: 17px;
+  min-height: 45px;
+}
 
-  .buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    align-items: center;
-  }
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
 
-  button {
-    border: none;
-    cursor: pointer;
-    border-radius: 50px;
-    padding: 12px 20px;
-    font-size: 16px;
-    transition: transform 0.3s ease;
-  }
+button {
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: .3s;
+}
 
-  #yes {
-    background: #ff4d6d;
-    color: white;
-    min-width: 120px;
-  }
+#yes {
+  background: #ff4d6d;
+  color: white;
+  padding: 14px 32px;
+  font-size: 16px;
+}
 
-  #no {
-    background: #b0b0b0;
-    color: white;
-  }
+#no {
+  background: #adb5bd;
+  color: white;
+  padding: 12px 22px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="card" id="card">
-  <img id="image"
-       referrerpolicy="no-referrer"
-       src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
-       onerror="this.src='https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif'">
-
+<div class="card">
+  <img id="image" src="images/love1.gif">
   <h1>Richa ❤️</h1>
   <p id="text">Will you be my Valentine? 💘</p>
 
   <div class="buttons">
-    <button id="yes" onclick="yesClicked()">Yes 💞</button>
+    <button id="yes" onclick="yesClicked()">Yes 💕</button>
     <button id="no" onclick="noClicked()">No 😢</button>
   </div>
 </div>
 
-<!-- 🎵 MUSIC -->
-<audio id="music" loop>
+<audio id="music">
   <source src="aao-na.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  let noCount = 0;
-  let yesScale = 1;
-  let musicStarted = false;
+let noCount = 0;
+let yesFont = 16;
+let yesPadding = 32;
+let musicStarted = false;
 
-  const texts = [
-    "Pleaseeee 🥺",
-    "Think again love 💔",
-    "Don’t break my heart 😭",
-    "I can’t imagine life without you 😢",
-    "One last chance 🥹",
-    "My heart says only you 💘",
-    "Okay now you're just teasing 😩"
-  ];
+const texts = [
+  "Pleaseee 🥺",
+  "Are you really sure? 💔",
+  "Think again love 😢",
+  "My heart is breaking 😭",
+  "Richa please 🥹",
+  "Don’t be so cruel 😞",
+  "You know you love me 😏"
+];
 
-  const images = [
-    "https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif",
-    "https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif",
-    "https://media.giphy.com/media/9Y5BbDSkSTiY8/giphy.gif",
-    "https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif",
-    "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"
-  ];
+const images = [
+  "images/sad1.gif",
+  "images/begging.gif",
+  "images/sad2.gif",
+  "images/love2.gif"
+];
 
-  function startMusic() {
-    if (!musicStarted) {
-      document.getElementById("music").play().catch(() => {});
-      musicStarted = true;
-    }
+function startMusic() {
+  if (!musicStarted) {
+    document.getElementById("music").play();
+    musicStarted = true;
   }
+}
 
-  function noClicked() {
-    startMusic();
-    noCount++;
+function noClicked() {
+  startMusic();
+  noCount++;
 
-    document.getElementById("text").innerText =
-      texts[noCount % texts.length];
+  document.getElementById("text").innerText =
+    texts[noCount % texts.length];
 
-    document.getElementById("image").src =
-      images[noCount % images.length];
+  document.getElementById("image").src =
+    images[noCount % images.length];
 
-    yesScale += 0.12;
-    document.getElementById("yes").style.transform =
-      `scale(${yesScale})`;
-  }
+  yesFont += 2;
+  yesPadding += 6;
 
-  function yesClicked() {
-    startMusic();
-    document.getElementById("card").innerHTML = `
-      <img referrerpolicy="no-referrer"
-           src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
-      <h1>I Love You ❤️</h1>
-      <p>
-        Richa, you just made my world complete 💖<br><br>
-        Happy Valentine’s Day, my love 💕
-      </p>
-    `;
-  }
+  const yesBtn = document.getElementById("yes");
+  yesBtn.style.fontSize = yesFont + "px";
+  yesBtn.style.padding = "14px " + yesPadding + "px";
+}
+
+function yesClicked() {
+  startMusic();
+  document.querySelector(".card").innerHTML = `
+    <img src="images/love2.gif">
+    <h1>I Love You ❤️</h1>
+    <p>
+      Richa, you are officially my Valentine 💖<br><br>
+      My heart chose you — forever 💫
+    </p>
+  `;
+}
 </script>
 
 </body>
