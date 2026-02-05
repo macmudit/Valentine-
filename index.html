@@ -12,56 +12,61 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-  font-family: Poppins, Arial, sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
 .card {
-  background: #fff;
-  padding: 25px;
+  background: white;
+  padding: 25px 20px 30px;
   border-radius: 20px;
-  width: 90%;
+  width: 92%;
   max-width: 360px;
   text-align: center;
   box-shadow: 0 20px 40px rgba(0,0,0,.25);
 }
 
 img {
-  width: 200px;
-  margin-bottom: 15px;
+  width: 190px;
+  height: auto;
+  margin-bottom: 10px;
 }
 
-h1 { color: #ff4d6d; }
+h1 {
+  color: #ff4d6d;
+  margin: 10px 0;
+}
 
 p {
-  font-size: 18px;
-  margin-bottom: 20px;
+  font-size: 17px;
+  min-height: 48px;
 }
 
 .buttons {
-  position: relative;
-  height: 90px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 button {
   border: none;
   border-radius: 30px;
-  padding: 14px 30px;
-  font-size: 16px;
   cursor: pointer;
-  position: absolute;
-  transition: .3s;
+  transition: .3s ease;
 }
 
 #yes {
   background: #ff4d6d;
   color: white;
-  left: 10px;
+  padding: 14px 30px;
+  font-size: 16px;
 }
 
 #no {
   background: #adb5bd;
   color: white;
-  right: 10px;
+  padding: 12px 22px;
+  font-size: 14px;
 }
 </style>
 </head>
@@ -69,7 +74,7 @@ button {
 <body>
 
 <div class="card">
-  <img id="image" src="https://i.imgur.com/7rlQzYx.gif">
+  <img id="image" src="https://media.tenor.com/7rYk0W5Z2ZMAAAAi/love.gif">
   <h1>Richa ❤️</h1>
   <p id="text">Will you be my Valentine? 💘</p>
 
@@ -79,34 +84,32 @@ button {
   </div>
 </div>
 
-<!-- WORKING MUSIC -->
-<audio id="music" preload="auto">
+<audio id="music">
   <source src="https://macmudit.github.io/Valentine-/aao-na.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 let noCount = 0;
-let yesScale = 1;
+let yesSize = 16;
+let yesPadding = 30;
 let musicStarted = false;
 
 const texts = [
-  "Pleaseee 🥺",
-  "Are you sure? 💔",
-  "Think again 😢",
-  "My heart is breaking 😭",
-  "Richa please 😖",
-  "You love me, I know 😏",
-  "Don’t do this 😩",
-  "Okay now I’m sad 😞",
-  "Last chance 🥹"
+  "Pleaseeee 🥺",
+  "Are you really sure? 💔",
+  "My heart is cracking 😢",
+  "Think again, love 😞",
+  "Richa pleaseee 🥹",
+  "You know you want to 😏",
+  "Don’t break my heart 😩",
+  "Last chance 😭"
 ];
 
 const images = [
-  "https://i.imgur.com/9Xq8KcF.gif",
-  "https://i.imgur.com/7rlQzYx.gif",
-  "https://i.imgur.com/4M7IWwP.gif",
-  "https://i.imgur.com/JYUbZQy.gif",
-  "https://i.imgur.com/3nQJY1P.gif"
+  "https://media.tenor.com/Wx9IEmZZXSoAAAAi/love.gif",
+  "https://media.tenor.com/I6kN-6X7nhAAAAAi/cute-love.gif",
+  "https://media.tenor.com/7rYk0W5Z2ZMAAAAi/love.gif",
+  "https://media.tenor.com/1c3zQKpX4gIAAAAi/heart-love.gif"
 ];
 
 function startMusic() {
@@ -125,22 +128,25 @@ function noClicked() {
   document.getElementById("text").innerText =
     texts[noCount % texts.length];
 
-  const img = document.getElementById("image");
-  img.src = images[noCount % images.length] + "?t=" + Date.now();
+  document.getElementById("image").src =
+    images[noCount % images.length] + "?v=" + Date.now();
 
-  yesScale += 0.3;
-  document.getElementById("yes").style.transform =
-    `scale(${yesScale})`;
+  yesSize += 2;
+  yesPadding += 6;
+
+  const yesBtn = document.getElementById("yes");
+  yesBtn.style.fontSize = yesSize + "px";
+  yesBtn.style.padding = "14px " + yesPadding + "px";
 }
 
 function yesClicked() {
   startMusic();
   document.querySelector(".card").innerHTML = `
-    <img src="https://i.imgur.com/YW6XKpG.gif" style="width:220px">
+    <img src="https://media.tenor.com/7Y2Z9PpGz0kAAAAi/love-you.gif" style="width:210px">
     <h1>I Love You ❤️</h1>
     <p>
       Richa, you are officially my Valentine 💖<br><br>
-      My heart chose you — today and always 💫
+      My heart chose you — today, tomorrow, always 💫
     </p>
   `;
 }
